@@ -12,7 +12,7 @@ app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 
-user_count = random.randint(10, 50)  # Random number between 10 and 50
+user_count = random.randint(10, 50)
 
 def update_user_count():
     global user_count
@@ -45,7 +45,7 @@ def stream():
     """Envoie le compteur en temps réel via SSE"""
 
     def generate():
-        last_value = None  # pour détecter les changements
+        last_value = None
         while True:
             global user_count
 
@@ -57,7 +57,6 @@ def stream():
                 })
                 yield f"data: {data}\n\n"
 
-            # petite pause entre chaque vérification
             time.sleep(2)
 
     return Response(
